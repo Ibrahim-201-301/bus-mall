@@ -1,0 +1,58 @@
+body {
+    background-color: rgb(240, 240, 240);
+}
+
+header {
+    background-color: rgba(161, 201, 161, 0.883);
+    height: 175px;
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+    color: rgb(5, 58, 51);
+    font-weight: bold;
+    font-size: 50px;
+}
+
+#headerdiv {
+    border: 1px solid yellow;
+    width: 900px;
+    height: 175px;
+    margin: auto;
+}
+
+header h1 {
+    border: 1px solid blue;
+    width: 700px;
+    padding-top: 40px;
+}
+
+header img {
+    max-width: 100px;
+    height: auto;
+    border: 1px solid red;
+    padding-top: 10px;
+}
+
+#left-bus {
+    float: left;
+}
+
+#right-bus {
+    float: right;
+}
+
+#maindiv {
+    width: 90%;
+    height: auto;
+    border: 1px solid green;
+}
+
+#home-for-results {
+    width: 25%;
+    border: 1px solid purple;
+}
+
+#home-for-imgs {
+    width: 70%;
+    height: 200px;
+    border: 1px dotted purple;
+}
