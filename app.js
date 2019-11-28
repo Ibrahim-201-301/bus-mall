@@ -12,6 +12,8 @@ function RandomImage(src, name) {
   this.src = `../img/${src}.jpg`;
   this.alt = name;
   this.title = name;
+  this.seen = 0;
+  this.clicked = 0;
 
   imgArray.push(this);
 }
@@ -28,6 +30,8 @@ function populateImgs() {
   imgOne.alt = imgArray[index].alt;
   imgOne.title = imgArray[index].title;
 
+  imgArray[index].seen++;
+
   var indexTwo = randomIndex(imgArray.length);
 
   while (indexTwo === index) {
@@ -37,8 +41,23 @@ function populateImgs() {
   imgTwo.alt = imgArray[indexTwo].alt;
   imgTwo.title = imgArray[indexTwo].title;
 
-//   console.log(index, indexTwo);
+  imgArray[indexTwo].seen++;
+  console.table(imgArray);
 }
+
+//event listener
+function handleClick(event) {
+//   console.log(event.target.title);
+  var votedOn = event.target.title;
+  for (var i = 0; i < imgArray.length; i++) {
+    if (votedOn === imgArray[i].title) {
+      imgArray[i].clicked++;
+    }
+  }
+  populateImgs();
+}
+
+imageHouse.addEventListener('click', handleClick);
 
 //new image instantiation
 function populateOnPageLoad() {
@@ -53,7 +72,7 @@ function populateOnPageLoad() {
   new RandomImage('dog-duck', 'Duckbill Dog Muzzle');
   new RandomImage('dragon', 'Canned Dragon Meat');
   new RandomImage('pen', 'Dining Utensil Pen');
-  new RandomImage('pet-sweep', 'Dusting Slippers');
+  new RandomImage('pet-sweep', 'Pet Sweep');
   new RandomImage('scissors', 'Pizza Scissors');
   new RandomImage('shark', 'Shark Sleeping Bag');
   new RandomImage('sweep', 'Microfiber Onesie');
@@ -67,4 +86,3 @@ function populateOnPageLoad() {
 //render
 populateOnPageLoad();
 populateImgs();
-// console.table(imgArray);
