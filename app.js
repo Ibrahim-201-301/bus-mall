@@ -7,7 +7,6 @@ var imgThree = document.getElementById('bathroom');
 var imageHouse = document.getElementById('image-house');
 var resultList = document.getElementById('result-house');
 var imgArray = [];
-
 var calcClicks = 0;
 
 //RandomImage constructor
@@ -74,15 +73,15 @@ function handleClick(event) {
   twentyFiveClicks();
 }
 
-//create a function that populates the following data as a list within the result-house section: title, seen, clicked after 25 votes have been cast
-
 //appends list to result-house
 var renderlist = function() {
-  var ulEl = document.createElement('ul');
-  resultList.appendChild(ulEl);
-  var liEl = document.createElement('li');
-  liEl.textContent = 'hello';
-  ulEl.appendChild(liEl);
+  for (var i = 0; i < imgArray.length; i++) {
+    var ulEl = document.createElement('ul');
+    resultList.appendChild(ulEl);
+    var liEl = document.createElement('li');
+    liEl.textContent = `${imgArray[i].title} was seen ${imgArray[i].seen} times and voted for ${imgArray[i].clicked} times.`;
+    ulEl.appendChild(liEl);
+  }
 };
 
 //populates upon 25 clicks
@@ -98,7 +97,7 @@ function populateOnPageLoad() {
   new RandomImage('banana', 'Banana Slicer');
   new RandomImage('bathroom', 'iPad & TP Stand');
   new RandomImage('boots', 'Toeless Rainboots');
-  new RandomImage('breakfast', 'All-in-One Breakfast Maker');
+  new RandomImage('breakfast', 'Breakfast Maker');
   new RandomImage('bubblegum', 'Meatball Bubblegum');
   new RandomImage('chair', 'Funny Red Chair');
   new RandomImage('cthulhu', 'Cthulhu Action Figure');
