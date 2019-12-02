@@ -42,7 +42,7 @@ function populateImgs() {
     indexTwo = randomIndex(imgArray.length);
   }
 
-  while (index === indexThree) {
+  while (index === indexThree || indexTwo === indexThree) {
     indexThree = randomIndex(imgArray.length);
   }
 
@@ -56,7 +56,7 @@ function populateImgs() {
 
   imgArray[indexTwo].seen++;
   imgArray[indexThree].seen++;
-  console.table(imgArray);
+//   console.table(imgArray);
 }
 
 //event listener
@@ -78,14 +78,6 @@ var renderlist = function() {
   liEl.textContent = 'hello';
   ulEl.appendChild(liEl);
 }
-
-//     document.getElementById('result-list');
-//     var ulEl = document.createElement('ul');
-//     var liEl = document.createElement('li');
-
-//     liEl.textContent = (`${title} was seen ${seen} times and voted for ${clicked}.`)
-//     ulEl.appendChild(liEl);
-
 
 //new image instantiation
 function populateOnPageLoad() {
