@@ -8,6 +8,7 @@ var imageHouse = document.getElementById('image-house');
 var resultList = document.getElementById('result-house');
 var imgArray = [];
 
+var calcClicks = 0;
 
 //RandomImage constructor
 function RandomImage(src, name) {
@@ -20,7 +21,7 @@ function RandomImage(src, name) {
   imgArray.push(this);
 }
 
-//helper function
+//helper functions
 function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -56,27 +57,39 @@ function populateImgs() {
 
   imgArray[indexTwo].seen++;
   imgArray[indexThree].seen++;
-//   console.table(imgArray);
+  console.table(imgArray);
 }
 
 //event listener
 function handleClick(event) {
   var votedOn = event.target.title;
+  calcClicks++;
+  console.log(calcClicks);
   for (var i = 0; i < imgArray.length; i++) {
     if (votedOn === imgArray[i].title) {
       imgArray[i].clicked++;
     }
   }
   populateImgs();
+  twentyFiveClicks();
 }
 
-//create a function that populates the following data as a list within the result-house section: title, seen, clicked
+//create a function that populates the following data as a list within the result-house section: title, seen, clicked after 25 votes have been cast
+
+//appends list to result-house
 var renderlist = function() {
   var ulEl = document.createElement('ul');
   resultList.appendChild(ulEl);
   var liEl = document.createElement('li');
   liEl.textContent = 'hello';
   ulEl.appendChild(liEl);
+};
+
+//populates upon 25 clicks
+function twentyFiveClicks() {
+  if (calcClicks === 25) {
+    renderlist();
+  }
 }
 
 //new image instantiation
@@ -107,4 +120,4 @@ function populateOnPageLoad() {
 imageHouse.addEventListener('click', handleClick);
 populateOnPageLoad();
 populateImgs();
-renderlist();
+
