@@ -14,14 +14,12 @@ header {
 }
 
 #headerdiv {
-    /* border: 1px solid yellow; */
     width: 900px;
     height: 175px;
     margin: auto;
 }
 
 header h1 {
-    /* border: 1px solid blue; */
     width: 700px;
     padding-top: 40px;
 }
@@ -29,7 +27,6 @@ header h1 {
 header img {
     max-width: 100px;
     height: auto;
-    /* border: 1px solid red; */
     padding-top: 10px;
 }
 
@@ -37,49 +34,57 @@ header img {
     float: left;
 }
 
-#right-bus {
-    float: right;
-}
-
 #maindiv {
     width: 99%;
     height: auto;
     padding-top: 20px;
-    /* border: 1px solid green; */
     display: inline-block;
 }
 
 #result-house {
-    width: 20%;
-    height: 500px;
-    /* border: 1px solid purple; */
+    width: 25%;
+    height: 600px;
+    text-align: center;
     float: left;
     background-color: rgba(177, 179, 177, 0.465);
+    overflow: scroll;
 }
 
 #image-house {
-    width: 79%;
+    width: 74%;
     height: 500px;
-    /* margin-left: 100px; */
-    /* border: 1px dotted purple; */
     background-color: white;
     text-align: center;
 }
 
-table {
-
+#instructions {
+    width: 50%;
+    height: 100px;
+    float: left;
+    text-align: center;
 }
 
-th {
+p {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 30px;
     font-weight: bold;
-    width: 120px;
+    padding-bottom: 15px;
 }
 
 ul {
-    padding-left: 35px;
+    padding-left: 15px;
+}
+
+li {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 10px;
 }
 
 img {
-    max-width: 300px;
+    max-width: 275px;
     height: auto;
 }
