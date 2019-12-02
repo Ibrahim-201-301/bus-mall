@@ -5,6 +5,7 @@ var imgOne = document.getElementById('bag');
 var imgTwo = document.getElementById('banana');
 var imgThree = document.getElementById('bathroom');
 var imageHouse = document.getElementById('image-house');
+var resultList = document.getElementById('result-house');
 var imgArray = [];
 
 
@@ -37,8 +38,12 @@ function populateImgs() {
 
   var indexThree = randomIndex(imgArray.length);
 
-  while (indexTwo === index || indexTwo === indexThree || index === indexThree) {
+  while (indexTwo === index || indexTwo === indexThree) {
     indexTwo = randomIndex(imgArray.length);
+  }
+
+  while (index === indexThree) {
+    indexThree = randomIndex(imgArray.length);
   }
 
   imgTwo.src = imgArray[indexTwo].src;
@@ -66,14 +71,20 @@ function handleClick(event) {
 }
 
 //create a function that populates the following data as a list within the result-house section: title, seen, clicked
-// var renderlist = function() {
+var renderlist = function() {
+  var ulEl = document.createElement('ul');
+  resultList.appendChild(ulEl);
+  var liEl = document.createElement('li');
+  liEl.textContent = 'hello';
+  ulEl.appendChild(liEl);
+}
+
 //     document.getElementById('result-list');
 //     var ulEl = document.createElement('ul');
 //     var liEl = document.createElement('li');
 
 //     liEl.textContent = (`${title} was seen ${seen} times and voted for ${clicked}.`)
 //     ulEl.appendChild(liEl);
-// }
 
 
 //new image instantiation
@@ -104,3 +115,4 @@ function populateOnPageLoad() {
 imageHouse.addEventListener('click', handleClick);
 populateOnPageLoad();
 populateImgs();
+renderlist();
