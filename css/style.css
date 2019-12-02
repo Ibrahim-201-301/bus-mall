@@ -44,6 +44,7 @@ header img {
 #maindiv {
     width: 99%;
     height: auto;
+    padding-top: 20px;
     /* border: 1px solid green; */
     display: inline-block;
 }

@@ -3,6 +3,7 @@
 //global variables
 var imgOne = document.getElementById('bag');
 var imgTwo = document.getElementById('banana');
+var imgThree = document.getElementById('bathroom');
 var imageHouse = document.getElementById('image-house');
 var imgArray = [];
 
@@ -34,20 +35,27 @@ function populateImgs() {
 
   var indexTwo = randomIndex(imgArray.length);
 
-  while (indexTwo === index) {
+  var indexThree = randomIndex(imgArray.length);
+
+  while (indexTwo === index || indexTwo === indexThree || index === indexThree) {
     indexTwo = randomIndex(imgArray.length);
   }
+
   imgTwo.src = imgArray[indexTwo].src;
   imgTwo.alt = imgArray[indexTwo].alt;
   imgTwo.title = imgArray[indexTwo].title;
 
+  imgThree.src = imgArray[indexThree].src;
+  imgThree.alt = imgArray[indexThree].alt;
+  imgThree.title = imgArray[indexThree].title;
+
   imgArray[indexTwo].seen++;
+  imgArray[indexThree].seen++;
   console.table(imgArray);
 }
 
 //event listener
 function handleClick(event) {
-//   console.log(event.target.title);
   var votedOn = event.target.title;
   for (var i = 0; i < imgArray.length; i++) {
     if (votedOn === imgArray[i].title) {
@@ -57,7 +65,16 @@ function handleClick(event) {
   populateImgs();
 }
 
-imageHouse.addEventListener('click', handleClick);
+//create a function that populates the following data as a list within the result-house section: title, seen, clicked
+// var renderlist = function() {
+//     document.getElementById('result-list');
+//     var ulEl = document.createElement('ul');
+//     var liEl = document.createElement('li');
+
+//     liEl.textContent = (`${title} was seen ${seen} times and voted for ${clicked}.`)
+//     ulEl.appendChild(liEl);
+// }
+
 
 //new image instantiation
 function populateOnPageLoad() {
@@ -84,5 +101,6 @@ function populateOnPageLoad() {
 }
 
 //render
+imageHouse.addEventListener('click', handleClick);
 populateOnPageLoad();
 populateImgs();
