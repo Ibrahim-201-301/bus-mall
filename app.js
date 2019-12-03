@@ -87,7 +87,7 @@ var renderlist = function() {
 function twentyFiveClicks() {
   if (calcClicks === 25) {
     renderlist();
-    imageHouse.removeEventListener('click', handleClick);
+    // imageHouse.removeEventListener('click', handleClick);
   }
 }
 
