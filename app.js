@@ -111,8 +111,8 @@ function populateOnPageLoad() {
   new RandomImage('tauntaun', 'TaunTaun Baby Mat');
   new RandomImage('unicorn', 'Canned Unicorn Meat');
   new RandomImage('usb', 'Reptile Tail USB');
-  new RandomImage('water-can', 'Nonsensical Watering Can');
-  new RandomImage('wine-glass', 'Terrarium for Wine');
+  new RandomImage('water-can', 'Nonsense Watering Can');
+  new RandomImage('wine-glass', 'Wine Sniffer');
 }
 
 //render
