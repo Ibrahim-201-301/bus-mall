@@ -56,14 +56,14 @@ function populateImgs() {
 
   imgArray[indexTwo].seen++;
   imgArray[indexThree].seen++;
-  console.table(imgArray);
+//   console.table(imgArray);
 }
 
 //event listener
 function handleClick(event) {
   var votedOn = event.target.title;
   calcClicks++;
-  console.log(calcClicks);
+//   console.log(calcClicks);
   for (var i = 0; i < imgArray.length; i++) {
     if (votedOn === imgArray[i].title) {
       imgArray[i].clicked++;
@@ -88,6 +88,7 @@ var renderlist = function() {
 function twentyFiveClicks() {
   if (calcClicks === 25) {
     renderlist();
+    imageHouse.removeEventListener('click', handleClick);
   }
 }
 
@@ -111,8 +112,8 @@ function populateOnPageLoad() {
   new RandomImage('tauntaun', 'TaunTaun Baby Mat');
   new RandomImage('unicorn', 'Canned Unicorn Meat');
   new RandomImage('usb', 'Reptile Tail USB');
-  new RandomImage('water-can', 'Nonsensical Watering Can');
-  new RandomImage('wine-glass', 'Terrarium for Wine');
+  new RandomImage('water-can', 'Nonsense Watering Can');
+  new RandomImage('wine-glass', 'Wine Sniffer');
 }
 
 //render
