@@ -63,7 +63,7 @@ function populateImgs() {
 function handleClick(event) {
   var votedOn = event.target.title;
   calcClicks++;
-//   console.log(calcClicks);
+
   for (var i = 0; i < imgArray.length; i++) {
     if (votedOn === imgArray[i].title) {
       imgArray[i].clicked++;
