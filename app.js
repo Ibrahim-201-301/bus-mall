@@ -63,6 +63,7 @@ function populateImgs() {
 function handleClick(event) {
   var votedOn = event.target.title;
   calcClicks++;
+
   for (var i = 0; i < imgArray.length; i++) {
     if (votedOn === imgArray[i].title) {
       imgArray[i].clicked++;
@@ -87,7 +88,7 @@ var renderlist = function() {
 function twentyFiveClicks() {
   if (calcClicks === 25) {
     renderlist();
-    // imageHouse.removeEventListener('click', handleClick);
+    imageHouse.removeEventListener('click', handleClick);
   }
 }
 
