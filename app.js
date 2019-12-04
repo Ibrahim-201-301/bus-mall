@@ -21,7 +21,8 @@ function drawGraph() {
       labels: titles,
       datasets: [{
         label: '# of Votes',
-        data: [imgArray[0].clicked, 19, 3, 5, 2, 3],
+        // data: [imgArray[0].clicked, 19, 3, 5, 2, 3],
+        data: dataArray,
         backgroundColor: [
           'rgba(177, 179, 177, 0.2)',
           'rgba(161, 201, 161, 0.2)',
@@ -137,11 +138,19 @@ var renderlist = function() {
   }
 };
 
+function chartResults() {
+  for (var i = 0; i < imgArray.length; i++){
+    console.log(`${imgArray[i].title} : ${imgArray[i].clicked}`);
+    dataArray.push(imgArray[i].clicked);
+  }
+}
+
 //populates upon 25 clicks
 function twentyFiveClicks() {
   if (calcClicks === 25) {
     renderlist();
     imageHouse.removeEventListener('click', handleClick);
+    chartResults();
     drawGraph();
   }
 }
