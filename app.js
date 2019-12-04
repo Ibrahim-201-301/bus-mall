@@ -7,6 +7,9 @@ var imgThree = document.getElementById('bathroom');
 var imageHouse = document.getElementById('image-house');
 var resultList = document.getElementById('result-house');
 var imgArray = [];
+//NEW CONTENT
+var imgContainerArray = [imgOne, imgTwo, imgThree];
+//END NEW CONTENT
 var calcClicks = 0;
 
 //RandomImage constructor
@@ -27,36 +30,18 @@ function randomIndex(max) {
 
 //generate random images
 function populateImgs() {
-  var index = randomIndex(imgArray.length);
-  imgOne.src = imgArray[index].src;
-  imgOne.alt = imgArray[index].alt;
-  imgOne.title = imgArray[index].title;
-
-  imgArray[index].seen++;
-
-  var indexTwo = randomIndex(imgArray.length);
-
-  var indexThree = randomIndex(imgArray.length);
-
-  while (indexTwo === index || indexTwo === indexThree) {
-    indexTwo = randomIndex(imgArray.length);
+  var currentImages = [];
+  for (var i = 0; i < imgContainerArray.length; i++) {
+    var currentIndex = randomIndex(imgArray.length);
+    while (currentImages.includes(currentIndex)) {
+      currentIndex = randomIndex(imgArray.length);
+    }
+    currentImages.push(currentIndex);
+    imgContainerArray[i].src = imgArray[currentIndex].src;
+    imgContainerArray[i].alt = imgArray[currentIndex].alt;
+    imgContainerArray[i].title = imgArray[currentIndex].title;
+    imgArray[currentIndex].seen++;
   }
-
-  while (index === indexThree || indexTwo === indexThree) {
-    indexThree = randomIndex(imgArray.length);
-  }
-
-  imgTwo.src = imgArray[indexTwo].src;
-  imgTwo.alt = imgArray[indexTwo].alt;
-  imgTwo.title = imgArray[indexTwo].title;
-
-  imgThree.src = imgArray[indexThree].src;
-  imgThree.alt = imgArray[indexThree].alt;
-  imgThree.title = imgArray[indexThree].title;
-
-  imgArray[indexTwo].seen++;
-  imgArray[indexThree].seen++;
-//   console.table(imgArray);
 }
 
 //event listener
