@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 //global variables
@@ -7,12 +8,15 @@ var imgThree = document.getElementById('bathroom');
 var imageHouse = document.getElementById('image-house');
 var resultList = document.getElementById('result-house');
 var ctx = document.getElementById('myChart').getContext('2d');
-var imgArray = [];
-var titles = []; 
-var dataArray = []; //in chart, use data: dataArray --- be sure to push to this array somewhere
-var imgContainerArray = [imgOne, imgTwo, imgThree];
+var twentyImgArray = [];
+var titles = [];
+var dataArrayVoted = [];
+var dataArraySeen = [];
+var uniqueArray = [];
+var threeImgArray = [imgOne, imgTwo, imgThree];
 var calcClicks = 0;
 
+//bar chart data
 function drawGraph() {
   // eslint-disable-next-line no-undef
   var myBarChart = new Chart(ctx, {
@@ -20,53 +24,17 @@ function drawGraph() {
     data: {
       labels: titles,
       datasets: [{
-        label: '# of Votes',
-        // data: [imgArray[0].clicked, 19, 3, 5, 2, 3],
-        data: dataArray,
-        backgroundColor: [
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)',
-          'rgba(177, 179, 177, 0.2)',
-          'rgba(161, 201, 161, 0.2)'
-        ],
-        borderColor: [
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)',
-          'rgba(177, 179, 177, 1)',
-          'rgba(161, 201, 161, 1)'
-        ],
+        label: 'Number of Votes',
+        data: dataArrayVoted,
+        backgroundColor: 'rgba(161, 201, 161, 0.2)',
+        borderColor: 'rgba(161, 201, 161, 1)',
+        borderWidth: 2
+      },
+      {
+        label: 'Number of Views',
+        data: dataArraySeen,
+        backgroundColor: 'rgba(177, 179, 177, 0.2)',
+        borderColor: 'rgba(177, 179, 177, 1)',
         borderWidth: 2
       }]
     }
@@ -82,7 +50,7 @@ function RandomImage(src, name) {
   this.clicked = 0;
 
   titles.push(name);
-  imgArray.push(this);
+  twentyImgArray.push(this);
 }
 
 //helper functions
@@ -90,26 +58,30 @@ function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-//generate random images
-//AND add property to create 3 new unique images, no duplicates from immediate previous set
-function populateImgs() {
-  var currentImages = [];
-  // var nextImages = [];
-  for (var i = 0; i < imgContainerArray.length; i++) {
-    var currentIndex = randomIndex(imgArray.length);
-    // var nextIndex = randomIndex(imgArray.length);
-    while (currentImages.includes(currentIndex)) {
-      currentIndex = randomIndex(imgArray.length);
+//create 3 new unique images, no duplicates from immediate previous set
+function uniqueThree(){
+  while (uniqueArray.length < 6) {
+    var random = randomIndex(twentyImgArray.length);
+    if (!uniqueArray.includes(random)) {
+      uniqueArray.push(random);
     }
-    // while (nextImages.includes(currentIndex)) {
-    //   nextIndex = randomIndex(imgArray.length);
-    // }
-    currentImages.push(currentIndex);
-    // nextImages.push(nextIndex);
-    imgContainerArray[i].src = imgArray[currentIndex].src;
-    imgContainerArray[i].alt = imgArray[currentIndex].alt;
-    imgContainerArray[i].title = imgArray[currentIndex].title;
-    imgArray[currentIndex].seen++;
+  }
+}
+
+function removeImgs() {
+  for (var i = 0; i < 3; i++) {
+    uniqueArray.shift();
+  }
+}
+
+//generate random images
+function populateImgs() {
+  uniqueThree();
+  for (var i = 0; i < threeImgArray.length; i++) {
+    threeImgArray[i].src = twentyImgArray[uniqueArray[i]].src;
+    threeImgArray[i].alt = twentyImgArray[uniqueArray[i]].alt;
+    threeImgArray[i].title = twentyImgArray[uniqueArray[i]].title;
+    twentyImgArray[uniqueArray[i]].seen++;
   }
 }
 
@@ -118,40 +90,44 @@ function handleClick(event) {
   var votedOn = event.target.title;
   calcClicks++;
 
-  for (var i = 0; i < imgArray.length; i++) {
-    if (votedOn === imgArray[i].title) {
-      imgArray[i].clicked++;
+  for (var i = 0; i < twentyImgArray.length; i++) {
+    if (votedOn === twentyImgArray[i].title) {
+      twentyImgArray[i].clicked++;
     }
   }
-  populateImgs();
   twentyFiveClicks();
 }
 
 //appends list to result-house
 var renderlist = function() {
-  for (var i = 0; i < imgArray.length; i++) {
+  for (var i = 0; i < twentyImgArray.length; i++) {
     var ulEl = document.createElement('ul');
     resultList.appendChild(ulEl);
     var liEl = document.createElement('li');
-    liEl.textContent = `${imgArray[i].title} was seen ${imgArray[i].seen} times and voted for ${imgArray[i].clicked} times.`;
+    liEl.textContent = `${twentyImgArray[i].title} was seen ${twentyImgArray[i].seen} times and voted for ${twentyImgArray[i].clicked} times.`;
     ulEl.appendChild(liEl);
   }
 };
 
+//adds data to graph -called within fn 25clicks
 function chartResults() {
-  for (var i = 0; i < imgArray.length; i++){
-    console.log(`${imgArray[i].title} : ${imgArray[i].clicked}`);
-    dataArray.push(imgArray[i].clicked);
+  for (var i = 0; i < twentyImgArray.length; i++){
+    // console.log(`${twentyImgArray[i].title} : ${twentyImgArray[i].clicked}`);
+    dataArrayVoted.push(twentyImgArray[i].clicked);
+    dataArraySeen.push(twentyImgArray[i].seen);
   }
 }
 
-//populates upon 25 clicks
+//upon 25 clicks, render result list and populate bar chart with results
 function twentyFiveClicks() {
   if (calcClicks === 25) {
     renderlist();
     imageHouse.removeEventListener('click', handleClick);
     chartResults();
     drawGraph();
+  } else {
+    removeImgs();
+    populateImgs();
   }
 }
 
@@ -182,5 +158,3 @@ function addToConstructor() {
 //render
 imageHouse.addEventListener('click', handleClick);
 addToConstructor();
-populateImgs();
-
