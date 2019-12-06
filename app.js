@@ -112,7 +112,6 @@ var renderlist = function() {
 //adds data to graph -called within fn 25clicks
 function chartResults() {
   for (var i = 0; i < twentyImgArray.length; i++){
-    // console.log(`${twentyImgArray[i].title} : ${twentyImgArray[i].clicked}`);
     dataArrayVoted.push(twentyImgArray[i].clicked);
     dataArraySeen.push(twentyImgArray[i].seen);
   }
@@ -158,3 +157,21 @@ function addToConstructor() {
 //render
 imageHouse.addEventListener('click', handleClick);
 addToConstructor();
+
+//local storage
+var storageArray = [];
+function titleAndVotes(title, votes) {
+  this.title = title;
+  this.votes = votes;
+  storageArray.push(this);
+}
+
+var stringVoted = JSON.stringify('add content here, remove single quotes');
+localStorage.setItem('vote-data', stringVoted);
+// console.log(localStorage);
+var getVoteData = localStorage.getItem('vote-data');
+// console.log(localStorage);
+var parseVoteData = JSON.parse(getVoteData);
+parseVoteData;
+
+
