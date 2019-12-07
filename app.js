@@ -16,6 +16,10 @@ var uniqueArray = [];
 var threeImgArray = [imgOne, imgTwo, imgThree];
 var calcClicks = 0;
 
+// var titleVotes = new Object();
+// titleVotes.title = titles;
+// titleVotes.vites = dataArrayVoted;
+
 //bar chart data
 function drawGraph() {
   // eslint-disable-next-line no-undef
@@ -115,6 +119,7 @@ function chartResults() {
     dataArrayVoted.push(twentyImgArray[i].clicked);
     dataArraySeen.push(twentyImgArray[i].seen);
   }
+  // console.log('data', dataArrayVoted);
 }
 
 //upon 25 clicks, render result list and populate bar chart with results
@@ -124,9 +129,30 @@ function twentyFiveClicks() {
     imageHouse.removeEventListener('click', handleClick);
     chartResults();
     drawGraph();
+
+    //save image title and vote data
+    var dataLS = localStorage.getItem('item-data');
+    for (var i = 0; i < titles.length; i++) {
+      
+      if (dataLS){
+        console.log('yes: ', dataLS);
+        
+      } else {
+        var titleVotes = {
+          title: titles,
+          votes: dataArrayVoted,
+        };
+        localStorage.setItem('item-data', JSON.stringify(titleVotes));
+        var getVoteData = localStorage.getItem('vote-data');
+
+        var parseVoteData = JSON.parse(getVoteData);
+        parseVoteData;
+      }
+    }
   } else {
     removeImgs();
     populateImgs();
+    localStorage.getItem('item-data');
   }
 }
 
@@ -165,13 +191,3 @@ function titleAndVotes(title, votes) {
   this.votes = votes;
   storageArray.push(this);
 }
-
-var stringVoted = JSON.stringify('add content here, remove single quotes');
-localStorage.setItem('vote-data', stringVoted);
-// console.log(localStorage);
-var getVoteData = localStorage.getItem('vote-data');
-// console.log(localStorage);
-var parseVoteData = JSON.parse(getVoteData);
-parseVoteData;
-
-
