@@ -43,7 +43,7 @@ header img {
 }
 
 #instructions {
-    width: 25%;
+    width: 24%;
     height: 500px;
     text-align: center;
     float: left;
@@ -52,7 +52,7 @@ header img {
 }
 
 #image-house {
-    width: 74%;
+    width: 75%;
     height: 500px;
     background-color: white;
     text-align: center;
@@ -63,7 +63,7 @@ p {
 }
 
 h2 {
-    font-size: 40px;
+    font-size: 30px;
     font-family: 'Roboto', sans-serif;
     color: rgba(5, 15, 5, 0.603);
     padding-top: 70px;
@@ -82,6 +82,6 @@ li {
 }
 
 img {
-    max-width: 325px;
+    max-width: 230px;
     height: auto;
 }
