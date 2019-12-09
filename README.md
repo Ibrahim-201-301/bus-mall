@@ -1,15 +1,16 @@
 # Bus Mall Product Testing App
 
-### Purpose:
-1. To gather data from the user about which products they'd like to see in the next edition of the Bus Mall catalogue
-2. To display the results of the user's voting as a bar graph, which will be updated each time the user votes
-​
 ### Author: 
 Cas Olejniczak
 ### Last Updated: 
 December 08, 2019
 ### Deployed Site: 
-[Bus Mall]()
+[Bus Mall](https://mamacas.github.io/bus-mall/.)
+
+### Purpose:
+1. To gather data from the user about which products they'd like to see in the next edition of the Bus Mall catalogue
+2. To display the results of the user's voting as a bar graph, which will be updated each time the user votes
+​
 ​
 ### How to Run the App
 From the terminal `open index.html` from root of the project.
