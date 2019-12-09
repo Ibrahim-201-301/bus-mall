@@ -1,26 +1,26 @@
-/* eslint-disable no-unused-vars */
 'use strict';
 
-//global variables
+/* eslint-disable no-unused-vars */
+
+// global variables
 var imgOne = document.getElementById('bag');
 var imgTwo = document.getElementById('banana');
 var imgThree = document.getElementById('bathroom');
+
 var imageHouse = document.getElementById('image-house');
 var resultList = document.getElementById('result-house');
+
 var ctx = document.getElementById('myChart').getContext('2d');
-var twentyImgArray = [];
 var titles = [];
 var dataArrayVoted = [];
 var dataArraySeen = [];
-var uniqueArray = [];
+
+var twentyImgArray = [];
 var threeImgArray = [imgOne, imgTwo, imgThree];
+var uniqueArray = [];
 var calcClicks = 0;
 
-// var titleVotes = new Object();
-// titleVotes.title = titles;
-// titleVotes.vites = dataArrayVoted;
-
-//bar chart data
+// bar chart data
 function drawGraph() {
   // eslint-disable-next-line no-undef
   var myBarChart = new Chart(ctx, {
@@ -45,7 +45,7 @@ function drawGraph() {
   });
 }
 
-//RandomImage constructor
+// RandomImage constructor
 function RandomImage(src, name) {
   this.src = `../img/${src}.jpg`;
   this.alt = name;
@@ -57,12 +57,12 @@ function RandomImage(src, name) {
   twentyImgArray.push(this);
 }
 
-//helper functions
+// helper function
 function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-//create 3 new unique images, no duplicates from immediate previous set
+// create 3 new unique images, no duplicates from immediate previous set
 function uniqueThree(){
   while (uniqueArray.length < 6) {
     var random = randomIndex(twentyImgArray.length);
@@ -78,7 +78,7 @@ function removeImgs() {
   }
 }
 
-//generate random images
+// generate random images
 function populateImgs() {
   uniqueThree();
   for (var i = 0; i < threeImgArray.length; i++) {
@@ -89,7 +89,7 @@ function populateImgs() {
   }
 }
 
-//event listener
+// event listener
 function handleClick(event) {
   var votedOn = event.target.title;
   calcClicks++;
@@ -102,61 +102,73 @@ function handleClick(event) {
   twentyFiveClicks();
 }
 
-//appends list to result-house
-var renderlist = function() {
-  for (var i = 0; i < twentyImgArray.length; i++) {
-    var ulEl = document.createElement('ul');
-    resultList.appendChild(ulEl);
-    var liEl = document.createElement('li');
-    liEl.textContent = `${twentyImgArray[i].title} was seen ${twentyImgArray[i].seen} times and voted for ${twentyImgArray[i].clicked} times.`;
-    ulEl.appendChild(liEl);
-  }
-};
-
-//adds data to graph -called within fn 25clicks
+// adds data to graph -to be called in fn 25clicks
 function chartResults() {
   for (var i = 0; i < twentyImgArray.length; i++){
     dataArrayVoted.push(twentyImgArray[i].clicked);
     dataArraySeen.push(twentyImgArray[i].seen);
   }
-  // console.log('data', dataArrayVoted);
 }
 
-//upon 25 clicks, render result list and populate bar chart with results
+// store in localStorage:
+// ---titles: array of titles
+// ---votesArr: array of total votes per title
+function storeInLS(titles, votesArr, seenArr) {
+
+  // areate object to store
+  var titleVotes = {
+    title: titles,
+    votes: votesArr,
+    seen: seenArr,
+  };
+
+  // stringify object to be saved
+  var titlesVotesStr = JSON.stringify(titleVotes);
+
+  // set object in localStorage
+  localStorage.setItem('vote-data', titlesVotesStr);
+}
+
+// upon 25 clicks, populate bar chart with results
 function twentyFiveClicks() {
   if (calcClicks === 25) {
-    renderlist();
     imageHouse.removeEventListener('click', handleClick);
     chartResults();
+    
+    // check local storage
+    var dataLS = localStorage.getItem('vote-data'); // if empty; dataLS === null
+
+    // returns true if 'dataLS' is not empty (something is in localStorage)
+    if (dataLS){
+      // parse the dataLS from string to object
+      var parseVoteData = JSON.parse(dataLS);
+
+      console.log('old dataArrayVoted: ', dataArrayVoted);
+      for (var i = 0; i < parseVoteData.title.length; i++) {
+        // increment the dataArrayVoted at each index to include data from localStorage
+        dataArrayVoted[i] += parseVoteData.votes[i];
+        dataArraySeen[i] += parseVoteData.seen[i];
+      }
+      console.log('new dataArrayVoted: ', dataArrayVoted);
+
+      // store updated array in localStorage
+      storeInLS(titles, dataArrayVoted, dataArraySeen);
+      
+    } else {
+      // store into localStorge for the first time
+      storeInLS(titles, dataArrayVoted, dataArraySeen);
+    }
+
     drawGraph();
 
-    //save image title and vote data
-    var dataLS = localStorage.getItem('item-data');
-    for (var i = 0; i < titles.length; i++) {
-      
-      if (dataLS){
-        console.log('yes: ', dataLS);
-        
-      } else {
-        var titleVotes = {
-          title: titles,
-          votes: dataArrayVoted,
-        };
-        localStorage.setItem('item-data', JSON.stringify(titleVotes));
-        var getVoteData = localStorage.getItem('vote-data');
-
-        var parseVoteData = JSON.parse(getVoteData);
-        parseVoteData;
-      }
-    }
+  // under 25 clicks:
   } else {
     removeImgs();
     populateImgs();
-    localStorage.getItem('item-data');
   }
 }
 
-//new image instantiation
+// new image instantiation
 function addToConstructor() {
   new RandomImage('bag', 'R2D2 Bag');
   new RandomImage('banana', 'Banana Slicer');
@@ -180,14 +192,6 @@ function addToConstructor() {
   new RandomImage('wine-glass', 'Wine Sniffer');
 }
 
-//render
+// render
 imageHouse.addEventListener('click', handleClick);
 addToConstructor();
-
-//local storage
-var storageArray = [];
-function titleAndVotes(title, votes) {
-  this.title = title;
-  this.votes = votes;
-  storageArray.push(this);
-}

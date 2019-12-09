@@ -10,7 +10,7 @@ header {
     font-family: 'Comfortaa', cursive;
     color: rgb(5, 58, 51);
     font-weight: bold;
-    font-size: 50px;
+    font-size: 65px;
 }
 
 #headerdiv {
@@ -20,7 +20,8 @@ header {
 }
 
 header h1 {
-    width: 700px;
+    /* font-size: 65px; */
+    width: 800px;
     padding-top: 40px;
 }
 
@@ -41,9 +42,9 @@ header img {
     display: inline-block;
 }
 
-#result-house {
+#instructions {
     width: 25%;
-    height: 600px;
+    height: 500px;
     text-align: center;
     float: left;
     background-color: rgba(177, 179, 177, 0.465);
@@ -57,21 +58,17 @@ header img {
     text-align: center;
 }
 
-#instructions {
-    width: 50%;
-    height: 100px;
-    float: left;
-    text-align: center;
-}
-
 p {
     font-size: 24px;
 }
 
 h2 {
-    font-size: 30px;
-    font-weight: bold;
-    padding-bottom: 15px;
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+    color: rgba(5, 15, 5, 0.603);
+    padding-top: 35px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 ul {
@@ -85,6 +82,6 @@ li {
 }
 
 img {
-    max-width: 275px;
+    max-width: 325px;
     height: auto;
 }
