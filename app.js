@@ -47,7 +47,7 @@ function drawGraph() {
 
 // RandomImage constructor
 function RandomImage(src, name) {
-  this.src = `../img/${src}.jpg`;
+  this.src = `img/${src}.jpg`;
   this.alt = name;
   this.title = name;
   this.seen = 0;
